@@ -31,6 +31,16 @@ const PORT = process.env.PORT || 5000;
 app.use(helmet());
 app.use(compression());
 
+// CORS Configuration (IMPORTANT: Must be before other middleware)
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? process.env.FRONTEND_URL || 'https://cogni.app'
+    : ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:5173'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 // Rate Limiting
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 900000,
@@ -39,14 +49,6 @@ const limiter = rateLimit({
 });
 
 app.use('/api/', limiter);
-
-// CORS Configuration
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? process.env.FRONTEND_URL || 'https://cogni.app'
-    : ['http://localhost:3000', 'http://localhost:5173'],
-  credentials: true
-}));
 
 // Body Parser Middleware
 app.use(express.json({ limit: '50mb' }));
@@ -90,6 +92,7 @@ app.use((err, req, res, next) => {
   const message = err.message || 'Internal Server Error';
   
   res.status(status).json({
+    success: false,
     error: {
       status,
       message,
@@ -101,6 +104,7 @@ app.use((err, req, res, next) => {
 // 404 Handler
 app.use((req, res) => {
   res.status(404).json({
+    success: false,
     error: {
       status: 404,
       message: 'Route not found'
@@ -110,9 +114,12 @@ app.use((req, res) => {
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`🚀 Cogni Server running on http://localhost:${PORT}`);
+  console.log(`\n🚀 Cogni Server running on http://localhost:${PORT}`);
   console.log(`📚 Study Engine Active`);
-  console.log(`🤖 Gemini AI Integration: ${process.env.GEMINI_API_KEY ? 'Connected' : 'Disconnected'}`);
+  console.log(`🤖 Gemini AI Integration: ${process.env.GEMINI_API_KEY ? 'Connected ✓' : 'Disconnected ✗'}`);
+  console.log(`\n📝 Test Credentials:`);
+  console.log(`   Email: test@cogni.ai`);
+  console.log(`   Password: 123456Aa\n`);
 });
 
 export default app;
