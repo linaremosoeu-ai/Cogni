@@ -13,14 +13,7 @@
     "lint": "eslint .",
     "test": "jest"
   },
-  "keywords": [
-    "AI",
-    "study",
-    "learning",
-    "flashcards",
-    "concept-mapping",
-    "active-recall"
-  ],
+  "keywords": ["AI", "study", "learning", "flashcards", "concept-mapping", "active-recall"],
   "author": "Cogni Team",
   "license": "MIT",
   "dependencies": {
@@ -41,7 +34,7 @@
     "validator": "^13.11.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.1.2",
-    "express-limiter": "^1.6.1"
+    "express-rate-limit": "^7.1.5"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
