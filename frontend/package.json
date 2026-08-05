@@ -1,0 +1,40 @@
+{
+  "name": "cogni-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
+    "axios": "^1.6.2",
+    "d3": "^7.8.5",
+    "three": "^r128",
+    "zustand": "^4.4.6",
+    "tailwindcss": "^3.4.1",
+    "uuid": "^9.0.1",
+    "react-hot-toast": "^2.4.1",
+    "recharts": "^2.10.3",
+    "clsx": "^2.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^5.0.8",
+    "typescript": "^5.3.3",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@types/d3": "^7.4.0",
+    "@types/three": "^r128",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "eslint": "^8.54.0",
+    "eslint-plugin-react": "^7.33.2"
+  }
+}

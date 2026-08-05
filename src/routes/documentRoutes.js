@@ -124,4 +124,5 @@ router.delete('/:id', protect, asyncHandler(async (req, res) => {
   res.json({ success: true, message: 'Document deleted' });
 }));
 
+export { documents, userDocuments };
 export default router;

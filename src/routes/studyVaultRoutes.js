@@ -3,6 +3,7 @@ import { asyncHandler } from '../utils/errorHandler.js';
 import { protect } from '../utils/authMiddleware.js';
 import geminiService from '../utils/geminiService.js';
 import documentParser from '../utils/documentParser.js';
+import { documents } from './documentRoutes.js';
 
 const router = express.Router();
 const vaults = new Map();
@@ -28,12 +29,12 @@ router.get('/:documentId', protect, (req, res) => {
 });
 
 router.post('/:documentId/extract', protect, asyncHandler(async (req, res) => {
-  const { content } = req.body;
-  if (!content) {
-    return res.status(400).json({ error: 'Content is required' });
+  const document = documents.get(req.params.documentId);
+  if (!document || document.userId !== req.user.userId) {
+    return res.status(404).json({ error: 'Document not found' });
   }
 
-  const textChunks = documentParser.chunkText(content, 3000);
+  const textChunks = documentParser.chunkText(document.content, 3000);
   const allConcepts = { concepts: [], keyTerms: [] };
 
   for (const chunk of textChunks) {
@@ -51,7 +52,7 @@ router.post('/:documentId/extract', protect, asyncHandler(async (req, res) => {
 
   const keywords = allConcepts.keyTerms.slice(0, 30);
   
-  const reviewQuestions = await geminiService.extractReviewQuestions(content.substring(0, 5000));
+  const reviewQuestions = await geminiService.extractReviewQuestions(document.content.substring(0, 5000));
 
   const vault = {
     documentId: req.params.documentId,
