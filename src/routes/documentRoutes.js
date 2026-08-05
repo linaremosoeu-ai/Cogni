@@ -6,7 +6,6 @@ import { validateFileUpload, validateDocumentInput } from '../utils/validators.j
 import documentParser from '../utils/documentParser.js';
 import geminiService from '../utils/geminiService.js';
 import { v4 as uuidv4 } from 'uuid';
-import path from 'path';
 import fs from 'fs/promises';
 
 const router = express.Router();

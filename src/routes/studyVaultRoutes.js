@@ -28,12 +28,12 @@ router.get('/:documentId', protect, (req, res) => {
 });
 
 router.post('/:documentId/extract', protect, asyncHandler(async (req, res) => {
-  const document = req.documents?.get(req.params.documentId);
-  if (!document) {
-    return res.status(404).json({ error: 'Document not found' });
+  const { content } = req.body;
+  if (!content) {
+    return res.status(400).json({ error: 'Content is required' });
   }
 
-  const textChunks = documentParser.chunkText(document.content, 3000);
+  const textChunks = documentParser.chunkText(content, 3000);
   const allConcepts = { concepts: [], keyTerms: [] };
 
   for (const chunk of textChunks) {
@@ -51,7 +51,7 @@ router.post('/:documentId/extract', protect, asyncHandler(async (req, res) => {
 
   const keywords = allConcepts.keyTerms.slice(0, 30);
   
-  const reviewQuestions = await geminiService.extractReviewQuestions(document.content.substring(0, 5000));
+  const reviewQuestions = await geminiService.extractReviewQuestions(content.substring(0, 5000));
 
   const vault = {
     documentId: req.params.documentId,

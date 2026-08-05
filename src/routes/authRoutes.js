@@ -1,8 +1,10 @@
 import express from 'express';
 import { asyncHandler } from '../utils/errorHandler.js';
+import { protect } from '../utils/authMiddleware.js';
 import { generateToken } from '../utils/authMiddleware.js';
 import { validateEmail, validatePassword } from '../utils/validators.js';
 import bcryptjs from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 const users = new Map();

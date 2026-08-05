@@ -3,7 +3,6 @@ import { asyncHandler } from '../utils/errorHandler.js';
 import { protect } from '../utils/authMiddleware.js';
 import geminiService from '../utils/geminiService.js';
 import ConceptGraphBuilder from '../utils/conceptGraphBuilder.js';
-import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 const conceptGraphs = new Map();
