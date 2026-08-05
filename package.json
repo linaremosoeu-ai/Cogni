@@ -13,14 +13,7 @@
     "lint": "eslint .",
     "test": "jest"
   },
-  "keywords": [
-    "AI",
-    "study",
-    "learning",
-    "flashcards",
-    "concept-mapping",
-    "active-recall"
-  ],
+  "keywords": ["AI", "study", "learning", "flashcards", "concept-mapping", "active-recall"],
   "author": "Cogni Team",
   "license": "MIT",
   "dependencies": {
